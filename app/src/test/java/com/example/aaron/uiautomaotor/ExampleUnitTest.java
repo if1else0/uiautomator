@@ -1,4 +1,4 @@
-package com.example.aaron.uiautomaotor1;
+package com.example.aaron.uiautomaotor;
 
 import org.junit.Test;
 

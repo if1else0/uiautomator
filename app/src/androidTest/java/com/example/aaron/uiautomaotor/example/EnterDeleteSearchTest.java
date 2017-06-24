@@ -1,4 +1,4 @@
-package com.example.aaron.uiautomaotor1;
+package com.example.aaron.uiautomaotor.example;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
  * Created by aaronyang on 6/10/17.
  */
 @RunWith(AndroidJUnit4.class)
-public class TextTest {
+public class EnterDeleteSearchTest {
 
     private UiDevice device;
     //设置网易新闻的包名
@@ -34,6 +34,7 @@ public class TextTest {
                 .getLaunchIntentForPackage(PACKAGE_NAME);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
+        Thread.sleep(1000);
         // 等待应用启动
         device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)),
                 10000);
@@ -41,10 +42,24 @@ public class TextTest {
 
     @Test
     public void name() throws Exception {
-        //通过文本定位到"娱乐"这个tab
-        UiObject2 tab = device.findObject(By.text("娱乐"));
-        //点击这个tab
-        tab.click();
+        //等待搜索控件出现
+        //版本不一样可能id不一样，要根据实际情况替换
+        device.wait(Until.hasObject(By.res("com.netease.newsreader.activity:id/bfu")),
+                10000);
+        //点击搜索按钮
+        UiObject2 searchObj = device.findObject(By.res("com.netease.newsreader.activity:id/bfu"));
+        searchObj.click();
+
+        //等待搜索控件出现
+        device.wait(Until.hasObject(By.res("com.netease.newsreader.activity:id/agm")),
+                10000);
+        UiObject2 searchET = device.findObject(By.res("com.netease.newsreader.activity:id/agm"));
+        searchET.setText("abcde");
+        device.pressDelete();
+        device.pressDelete();
+        Thread.sleep(1000);
+        device.pressEnter();
+        Thread.sleep(2000);
     }
 
     @After

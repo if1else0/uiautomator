@@ -1,11 +1,10 @@
-package com.example.aaron.uiautomaotor1;
+package com.example.aaron.uiautomaotor;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
@@ -19,7 +18,7 @@ import org.junit.runner.RunWith;
  * Created by aaronyang on 6/10/17.
  */
 @RunWith(AndroidJUnit4.class)
-public class CopyTest {
+public class TextTest {
 
     private UiDevice device;
     //设置网易新闻的包名
@@ -42,16 +41,10 @@ public class CopyTest {
 
     @Test
     public void name() throws Exception {
-        Thread.sleep(8000);
-        BySelector selector1 = By.res("com.netease.newsreader.activity:id/n_");
-        //hasChild要一级一级找
-        BySelector selector2 = selector1.hasChild(By.clazz("android.widget.LinearLayout"));
-        UiObject2 uiObject1 = device.findObject(selector2);
-        uiObject1.findObject(By.res("com.netease.newsreader.activity:id/dz")).getText().toString();
-
-        BySelector selector = selector2.hasDescendant(By.res("com.netease.newsreader.activity:id/dz"));
-       System.out.println(device.findObject(selector).getText().toString());
-
+        //通过文本定位到"娱乐"这个tab
+        UiObject2 tab = device.findObject(By.text("娱乐"));
+        //点击这个tab
+        tab.click();
     }
 
     @After

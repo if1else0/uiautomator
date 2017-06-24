@@ -1,4 +1,4 @@
-package com.example.aaron.uiautomaotor1;
+package com.example.aaron.uiautomaotor;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

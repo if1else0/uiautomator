@@ -1,4 +1,4 @@
-package com.example.aaron.uiautomaotor1;
+package com.example.aaron.uiautomaotor;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

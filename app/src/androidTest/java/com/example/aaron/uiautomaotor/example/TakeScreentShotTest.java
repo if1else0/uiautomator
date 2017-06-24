@@ -1,32 +1,41 @@
-package com.example.aaron.uiautomaotor1;
+package com.example.aaron.uiautomaotor.example;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
+import android.support.v4.app.ActivityCompat;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static junit.framework.Assert.assertEquals;
+import java.io.File;
 
 /**
- * Created by Aaron on 2017/6/1.
+ * Created by aaronyang on 6/10/17.
  */
-
 @RunWith(AndroidJUnit4.class)
-public class IdTest {
+public class TakeScreentShotTest {
+
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     private UiDevice device;
     //设置网易新闻的包名
-    private static  final String PACKAGE_NAME = "com.netease.newsreader.activity";
+    private static  final String PACKAGE_NAME = "net.oschina.app";
 
     @Before
     public void setUp() throws Exception {
@@ -38,6 +47,7 @@ public class IdTest {
                 .getLaunchIntentForPackage(PACKAGE_NAME);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
+        Thread.sleep(2000);
         // 等待应用启动
         device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)),
                 10000);
@@ -45,13 +55,11 @@ public class IdTest {
 
     @Test
     public void name() throws Exception {
-//        //设置选择器
-//        BySelector selector = By.res("com.netease.newsreader.activity:id/bg5");
-//        //通过选择器定位控件
-//        UiObject2 object2 = device.findObject(selector);
-//        object2.click();
-        device.wait(Until.hasObject(By.res("com.netease.newsreader.activity:id/bg5")),5000);
-        device.findObject(By.res("com.netease.newsreader.activity:id/bg5")).click();
+        device.wait(Until.hasObject(By.res("net.oschina.app:id/tv_title")),
+                10000);
+        File file = new File(Environment.getExternalStorageDirectory() + "/test.png");
+        device.takeScreenshot(file);
+
     }
 
     @After
@@ -61,3 +69,4 @@ public class IdTest {
 
 
 }
+
